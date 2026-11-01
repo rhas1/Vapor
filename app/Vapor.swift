@@ -252,7 +252,7 @@ final class Model: ObservableObject {
 
     private func setup(_ done: String) {
         zsh(["\(scripts)/setup.sh"], progress: { [self] in appendLog($0) }) { [self] status, _ in
-            finish(status == 0 ? done : "Setup stopped; the details are above. Try again, or copy the diagnostics for a bug report.")
+            finish(status == 0 ? done : "Setup stopped; the details are above. Try again, or choose More → Report a Problem.")
         }
     }
 
@@ -317,6 +317,25 @@ final class Model: ObservableObject {
             NSPasteboard.general.clearContents()
             NSPasteboard.general.setString(output, forType: .string)
             message = "Copied the diagnostics. Paste them into a bug report on GitHub; they contain no names, file paths or accounts."
+        }
+    }
+
+    /// Opens a new GitHub issue in the browser, with the diagnostics, the running game and Vapor's
+    /// last output filled in. Nothing is posted until it's submitted there.
+    func reportProblem() {
+        zsh(["\(scripts)/diagnostics.sh"]) { [self] _, diagnostics in
+            var fields = ["template": "problem.yml", "diagnostics": diagnostics]
+            if let gameName { fields["game"] = gameName }
+            // The newest part, kept short so the link isn't too long for GitHub, without the path
+            // to this Mac's home folder.
+            let output = [log, message].filter { !$0.isEmpty }.joined(separator: "\n\n")
+                .replacingOccurrences(of: NSHomeDirectory(), with: "~")
+            if !output.isEmpty { fields["output"] = String(output.suffix(2000)) }
+            var link = URLComponents(string: "https://github.com/rhas1/Vapor/issues/new")!
+            link.queryItems = fields.map { URLQueryItem(name: $0.key, value: $0.value) }
+            // A + left as it is reads as a space.
+            link.percentEncodedQuery = link.percentEncodedQuery?.replacingOccurrences(of: "+", with: "%2B")
+            NSWorkspace.shared.open(link.url!)
         }
     }
 
@@ -673,6 +692,7 @@ struct ContentView: View {
                 Button("Uninstall Vapor Steam…") { model.askUninstall() }
                     .disabled(!model.installed || model.wineRunning)
                 Divider()
+                Button("Report a Problem…") { model.reportProblem() }
                 Button("Vapor on GitHub") { NSWorkspace.shared.open(URL(string: "https://github.com/rhas1/Vapor")!) }
             }
             .menuStyle(.button)
