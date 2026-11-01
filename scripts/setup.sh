@@ -141,6 +141,9 @@ fi
 # Steam installer too early would cut it off.
 wait_for_wine 60 || { echo "Wine is still running; run ${0:h}/close-wine.sh and try again."; exit 1; }
 reg_set 'Software\Wine\DllOverrides' winemenubuilder.exe ""
+# Command acts as Ctrl and Option as Alt in Windows programs, so ⌘C, ⌘V and ⌘A work in Steam and
+# games. The wrapper's template sets these too; this keeps them if a later template doesn't.
+for key in {Left,Right}CommandIsCtrl {Left,Right}OptionIsAlt; do reg_set 'Software\Wine\Mac Driver' $key Y; done
 
 if [[ ! -f "$STEAM_DIR/steam.exe" ]]; then
   echo "Installing Windows Steam..."

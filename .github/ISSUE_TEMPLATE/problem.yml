@@ -1,0 +1,36 @@
+# Vapor's More → Report a Problem… opens this form with the diagnostics and output fields filled in,
+# by their ids, so keep those ids as they are.
+name: Report a problem
+description: Something in Vapor or Vapor Steam doesn't work as it should.
+labels: [bug]
+body:
+  - type: textarea
+    id: what
+    attributes:
+      label: What happened?
+      description: What you did, what you expected, and what happened instead.
+    validations:
+      required: true
+  - type: input
+    id: game
+    attributes:
+      label: Game
+      description: If it's about a game, its name.
+  - type: textarea
+    id: diagnostics
+    attributes:
+      label: Diagnostics
+      description: >-
+        Vapor's More → Report a Problem… fills this in. From Terminal, paste what
+        ./scripts/diagnostics.sh prints. They contain no names, file paths or accounts.
+      render: text
+    validations:
+      required: true
+  - type: textarea
+    id: output
+    attributes:
+      label: Vapor's output
+      description: >-
+        What Vapor showed last, such as setup's output when it stopped. Read it through before
+        submitting, and remove anything you'd rather keep private.
+      render: text

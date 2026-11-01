@@ -64,6 +64,7 @@ Vapor's window shows whether Steam is running, which game is running, and six se
 - After changing the resolution, pick the resolution again in each game's display settings.
 - **Start Steam**, **Show Steam** and **Quit Steam** do what they say. Closing Steam's window only hides it to the menu bar; **Show Steam** brings it back. If a game is running, Quit asks first, because unsaved progress would be lost.
 - Double-clicking Vapor Steam (see [Where things live](#where-things-live)) also starts Steam with your saved settings.
+- In Steam and games, Command acts as Ctrl and Option as Alt, so **⌘C, ⌘V and ⌘A** copy, paste and select all, for example to paste a password into Steam's sign-in.
 
 The **More** menu has:
 
@@ -73,6 +74,7 @@ The **More** menu has:
 | Clear Caches… | Deletes the translators' shader caches, after asking Yes or No. Games rebuild them as you play, so expect some stutter the first time through each area. Useful if a game shows graphics glitches after an update. |
 | Copy Diagnostics | Copies versions, settings and status for a bug report. It contains no names, file paths or accounts. |
 | Uninstall Vapor Steam… | Deletes Vapor Steam, **including Steam, all installed games, your sign-ins and any saves stored only on this Mac**, plus the shader caches, after asking Yes or No. Then it offers to move Vapor itself to the Trash. Saves in Steam Cloud stay online. |
+| Report a Problem… | Opens a new issue on GitHub in your browser, with the diagnostics, the running game and Vapor's last output filled in (your home folder's path is shortened to `~`). Add what happened, read it through, and submit it. Nothing is posted until you do. It needs a GitHub account. |
 | Vapor on GitHub | Opens this page. |
 
 **About MetalFX upscaling:**
@@ -105,7 +107,7 @@ Run these from the folder. You can also `cd scripts` first and leave out the `sc
 | See the settings, whether an update is ready, and which translator a running game uses | `./scripts/status.sh` |
 | Quit Steam and Wine | Steam menu → **Exit**, or `./scripts/close-wine.sh` |
 | Clear the shader caches | `./scripts/clear-caches.sh` |
-| Print diagnostics for a bug report | `./scripts/diagnostics.sh` |
+| Print diagnostics for a bug report, to paste into a [new issue](https://github.com/rhas1/Vapor/issues/new?template=problem.yml) | `./scripts/diagnostics.sh` |
 | Remove everything | `./scripts/uninstall.sh` |
 
 ### Launch arguments
@@ -178,7 +180,7 @@ Online play works as it does on Windows: friends, invites and matchmaking go thr
 | A game won't start, or shows a black screen | Try the other translator, and check [Compatibility](#compatibility). |
 | Glitches or crashes with DXMT | Switch to D3DMetal. If glitches started after an update, also try **More → Clear Caches…**. |
 | The picture, or Steam's window, looks wrong with MetalFX upscaling | Turn MetalFX upscaling off. |
-| Setup or an update fails partway | Try again: setup picks up where it stopped. If it keeps failing, choose **More → Copy Diagnostics** and include them, with the setup output, in a bug report. |
+| Setup or an update fails partway | Try again: setup picks up where it stopped. If it keeps failing, choose **More → Report a Problem…**, which fills in the diagnostics and the setup output. |
 | "Not enough free space" | Free up space and try again. Installing needs 5 GB free, and an update 3 GB. |
 | "Checksum mismatch" | A download isn't the expected file. Setup stops without using it. Try again later, or update Vapor. |
 | "An earlier update didn't finish" | See [An update stopped partway](#an-update-stopped-partway). |
@@ -202,7 +204,7 @@ An update moves your Windows drive (Steam, games and sign-ins) into a fresh wrap
 ## Privacy and security
 
 - **Never share or upload `Vapor Steam.app`.** It contains your Steam and game sign-ins, cookies and saves. To set up another Mac, install Vapor there instead. Setup makes it readable only by your Mac account.
-- **Vapor collects nothing.** It contains no accounts, keys or tracking. It only contacts GitHub, to check for and download its own updates, and setup downloads only from GitHub (the wrapper and Wine, checked against pinned checksums) and Valve (the Steam installer).
+- **Vapor collects nothing.** It contains no accounts, keys or tracking. It only contacts GitHub, to check for and download its own updates, and setup downloads only from GitHub (the wrapper and Wine, checked against pinned checksums) and Valve (the Steam installer). **Report a Problem…** opens a GitHub page in your browser, and nothing is posted unless you submit it there.
 - **Wine isn't a sandbox.** Windows programs run with the same access to your files as any app you run, and Wine shows them your whole Mac as drive `Z:`. Only install games and mods from sources you trust.
 - **If macOS asks whether "wine" or "wineserver" may accept incoming network connections,** you can choose Deny. Online play usually works without it; allow it only if a game can't host or join sessions.
 - To report a vulnerability, see [SECURITY.md](SECURITY.md).
@@ -232,6 +234,7 @@ Neither Steam nor your games are modified. Rosetta 2 translates their Intel code
   - Steam keeps each account's settings in `drive_c/Program Files (x86)/Steam/userdata/<account>/config/localconfig.vdf`. Vapor sets only the in-game overlay there, as `EnableGameOverlay`.
 - The shader caches are in the Mac's cache folder: run `open $(getconf DARWIN_USER_CACHE_DIR)` and look in `d3dm/` (D3DMetal) and `dxmt/` (DXMT), with one folder per game.
 - Vapor switches off Wine's menu builder (`winemenubuilder`), which would otherwise copy Windows shortcuts to the Mac's desktop as `.desktop` files whenever a program such as Steam's installer creates one.
+- The Command and Option key mapping is in Wine's registry (`prefix/user.reg`), under `Software\Wine\Mac Driver`: `LeftCommandIsCtrl`, `RightCommandIsCtrl`, `LeftOptionIsAlt` and `RightOptionIsAlt`. Setup sets them each time it runs.
 - **Keeping it on an external drive:** before installing, edit the `INSTALL_PATH=` line near the top of `scripts/config.sh`, replacing `$HOME/Library/Application Support/Vapor.noindex/Vapor Steam.app` with something like `/Volumes/GameSSD/Vapor.noindex/Vapor Steam.app`, and install from Terminal. The drive must be formatted as APFS.
 
 ## Files
@@ -248,7 +251,8 @@ Vapor/
 │                 dmg/ (the disk image window's background and layout)
 ├── tools/        update-pins.sh, release-notes.sh, dmg-window.sh, dmg-background.swift,
 │                 clean-dsstore.py
-└── .github/      workflows/checks.yml, release.yml, update-pins.yml
+└── .github/      workflows/checks.yml, release.yml, update-pins.yml,
+                  ISSUE_TEMPLATE/problem.yml
 ```
 
 | File | What it does |
@@ -269,6 +273,7 @@ Vapor/
 | `tools/release-notes.sh` | Writes a release's notes from `CHANGELOG.md`. |
 | `tools/dmg-window.sh` | Remakes `app/dmg/` after a design change: draws the background (`dmg-background.swift`), has Finder lay out the window, and removes what Finder's layout file records about the Mac it was made on (`clean-dsstore.py`). Run it on a Mac; macOS asks once to let it control Finder. |
 | `.github/workflows/` | Checks each change, builds and publishes releases, and proposes newer wrapper and Wine versions daily. |
+| `.github/ISSUE_TEMPLATE/problem.yml` | The bug report form that **Report a Problem…** fills in. |
 
 ## Releasing
 

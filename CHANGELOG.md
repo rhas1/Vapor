@@ -2,6 +2,17 @@
 
 Notable changes to Vapor, called DXMetal before 2.0.0. Version numbers follow [Semantic Versioning](https://semver.org).
 
+## [2.3.0] - 2026-11-01
+
+### Added
+
+- **More → Report a Problem…** opens a new issue on GitHub in your browser, with the diagnostics, the running game and Vapor's last output filled in, and your home folder's path shortened to `~`. Nothing is posted until you submit it. When setup stops, its message points there.
+- A bug report form on GitHub, with fields for what happened, the game, the diagnostics and Vapor's output.
+
+### Changed
+
+- Setup makes sure Command acts as Ctrl and Option as Alt in Steam and games, so ⌘C, ⌘V and ⌘A copy, paste and select all. The wrapper already sets this; setup now keeps it if a later wrapper doesn't.
+
 ## [2.2.0] - 2026-10-31
 
 Steam's in-game overlay is now off. Opening it, including through a game's own invite button, can freeze the game: a known bug with Steam's overlay under Wine. Invite friends through Steam's Friends list instead.
@@ -70,6 +81,7 @@ The first tagged release, as DXMetal.
 - The scripts use macOS's own tools, whatever else is in your PATH.
 - DXMetal Settings is signed with the hardened runtime, and contains no accounts or personal details.
 
+[2.3.0]: https://github.com/rhas1/Vapor/releases/tag/v2.3.0
 [2.2.0]: https://github.com/rhas1/Vapor/releases/tag/v2.2.0
 [2.1.0]: https://github.com/rhas1/Vapor/releases/tag/v2.1.0
 [2.0.0]: https://github.com/rhas1/Vapor/releases/tag/v2.0.0
