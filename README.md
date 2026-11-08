@@ -1,4 +1,22 @@
-# Vapor
+<p align="center">
+  <img src=".github/assets/banner.svg" width="100%" alt="Vapor: Windows-only Steam games on your Apple Silicon Mac">
+</p>
+
+<p align="center">
+  <a href="https://github.com/rhas1/Vapor/releases/latest"><img alt="Latest release" src="https://img.shields.io/github/v/release/rhas1/Vapor?style=flat-square&label=release&labelColor=0d1426&color=34558c"></a>
+  <img alt="macOS 14.6 or newer" src="https://img.shields.io/badge/macOS-14.6%2B-34558c?style=flat-square&logo=apple&logoColor=white&labelColor=0d1426">
+  <img alt="Apple Silicon (M1 or newer)" src="https://img.shields.io/badge/Apple%20Silicon-M1%20or%20newer-34558c?style=flat-square&labelColor=0d1426">
+  <a href="https://github.com/rhas1/Vapor/actions/workflows/checks.yml"><img alt="Checks" src="https://img.shields.io/github/actions/workflow/status/rhas1/Vapor/checks.yml?branch=main&style=flat-square&label=checks&labelColor=0d1426"></a>
+  <a href="LICENSE"><img alt="MIT License" src="https://img.shields.io/badge/license-MIT-34558c?style=flat-square&labelColor=0d1426"></a>
+</p>
+
+<p align="center">
+  <a href="https://github.com/rhas1/Vapor/releases/latest"><b>Download</b></a> ·
+  <a href="#install">Install</a> ·
+  <a href="#using-vapor">Using Vapor</a> ·
+  <a href="#tested-games">Tested games</a> ·
+  <a href="#troubleshooting">Troubleshooting</a>
+</p>
 
 Play Windows-only Steam games on an Apple Silicon Mac, including online with friends on Windows PCs.
 
@@ -211,18 +229,7 @@ An update moves your Windows drive (Steam, games and sign-ins) into a fresh wrap
 
 ## How it works
 
-```
-┌──────────────────────────────────────────────┐
-│ Windows game (unchanged)                     │
-├──────────────────────────────────────────────┤
-│ Wine 11              Windows → macOS         │  files, windows, input, sound, network
-│ DXMT or D3DMetal     DirectX → Metal         │  graphics
-├──────────────────────────────────────────────┤
-│ Rosetta 2            Intel → Apple Silicon   │  CPU instructions
-├──────────────────────────────────────────────┤
-│ macOS · Metal · Apple Silicon                │
-└──────────────────────────────────────────────┘
-```
+![Layers, top to bottom: the Windows game, unchanged; Wine 11 (Windows to macOS) beside DXMT or D3DMetal (DirectX to Metal); Rosetta 2 (Intel to Apple Silicon); macOS, Metal and Apple Silicon](.github/assets/how-it-works.svg)
 
 Neither Steam nor your games are modified. Rosetta 2 translates their Intel code for Apple Silicon. Wine provides the Windows system functions they call, using macOS underneath. DXMT or D3DMetal turns their DirectX graphics into Metal. To other players, the Mac is just another Windows PC.
 
@@ -252,7 +259,7 @@ Vapor/
 ├── tools/        update-pins.sh, release-notes.sh, dmg-window.sh, dmg-background.swift,
 │                 clean-dsstore.py
 └── .github/      workflows/checks.yml, release.yml, update-pins.yml,
-                  ISSUE_TEMPLATE/problem.yml
+                  ISSUE_TEMPLATE/problem.yml, assets/ (this README's pictures)
 ```
 
 | File | What it does |
@@ -274,6 +281,7 @@ Vapor/
 | `tools/dmg-window.sh` | Remakes `app/dmg/` after a design change: draws the background (`dmg-background.swift`), has Finder lay out the window, and removes what Finder's layout file records about the Mac it was made on (`clean-dsstore.py`). Run it on a Mac; macOS asks once to let it control Finder. |
 | `.github/workflows/` | Checks each change, builds and publishes releases, and proposes newer wrapper and Wine versions daily. |
 | `.github/ISSUE_TEMPLATE/problem.yml` | The bug report form that **Report a Problem…** fills in. |
+| `.github/assets/` | The banner and diagram in this README. |
 
 ## Releasing
 

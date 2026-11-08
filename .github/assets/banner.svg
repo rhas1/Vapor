@@ -1,0 +1,78 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1280 400" width="1280" height="400" role="img" aria-labelledby="title">
+  <title id="title">Vapor: Windows-only Steam games on your Apple Silicon Mac</title>
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#1c2949"/>
+      <stop offset="1" stop-color="#090d18"/>
+    </linearGradient>
+    <radialGradient id="glow" cx="250" cy="200" r="360" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#5480d9" stop-opacity="0.42"/>
+      <stop offset="1" stop-color="#5480d9" stop-opacity="0"/>
+    </radialGradient>
+    <linearGradient id="mist" x1="0" y1="1" x2="0" y2="0">
+      <stop offset="0" stop-color="#d9ebff" stop-opacity="0.18"/>
+      <stop offset="1" stop-color="#d9ebff" stop-opacity="0"/>
+    </linearGradient>
+    <!-- Vapor's app icon (app/AppIcon.icns), redrawn as vectors in its 1024-point grid -->
+    <linearGradient id="tile" x1="0" y1="100" x2="0" y2="924" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#34558c"/>
+      <stop offset="1" stop-color="#0f1522"/>
+    </linearGradient>
+    <linearGradient id="side" x1="0" y1="345" x2="0" y2="785" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#eef3fd" stop-opacity="0.15"/>
+      <stop offset="1" stop-color="#eef3fd"/>
+    </linearGradient>
+    <linearGradient id="mid" x1="0" y1="215" x2="0" y2="803" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#eef3fd" stop-opacity="0.15"/>
+      <stop offset="1" stop-color="#eef3fd"/>
+    </linearGradient>
+    <filter id="shadow" x="-30%" y="-30%" width="160%" height="170%">
+      <feDropShadow dx="0" dy="40" stdDeviation="50" flood-color="#02040a" flood-opacity="0.6"/>
+    </filter>
+    <clipPath id="card"><rect width="1280" height="400" rx="28"/></clipPath>
+  </defs>
+  <style>
+    text { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Helvetica Neue", Helvetica, Arial, sans-serif; }
+    .wisp { fill: none; stroke: url(#mist); stroke-width: 16; stroke-linecap: round; animation: rise 8s ease-in-out infinite; }
+    .glow { animation: pulse 6s ease-in-out infinite; }
+    @keyframes rise { 0% { transform: translateY(30px); opacity: 0; } 35% { opacity: 1; } 100% { transform: translateY(-50px); opacity: 0; } }
+    @keyframes pulse { 50% { opacity: 0.7; } }
+    @media (prefers-reduced-motion: reduce) { .wisp, .glow { animation: none; } }
+  </style>
+
+  <g clip-path="url(#card)">
+    <rect width="1280" height="400" fill="url(#bg)"/>
+    <rect class="glow" width="1280" height="400" fill="url(#glow)"/>
+    <path class="wisp" style="animation-delay:-1s" d="M40 440c18-42 18-83 0-125s-18-83 0-125"/>
+    <path class="wisp" style="animation-delay:-5s" d="M1140 440c20-50 20-100 0-150s-20-100 0-150"/>
+    <path class="wisp" style="animation-delay:-2.5s" d="M1196 440c24-60 24-120 0-180s-24-120 0-180"/>
+    <path class="wisp" style="animation-delay:-6.5s" d="M1250 440c18-45 18-90 0-135s-18-90 0-135"/>
+  </g>
+
+  <svg x="130" y="80" width="240" height="240" viewBox="100 100 824 824" overflow="visible">
+    <g filter="url(#shadow)">
+      <rect x="100" y="100" width="824" height="824" rx="185" fill="url(#tile)"/>
+    </g>
+    <g fill="none" stroke-width="60" stroke-linecap="round">
+      <path stroke="url(#side)" d="M372 372C340 405 322 445 332 495C342 545 395 590 394 650C393 700 372 730 352 755"/>
+      <path stroke="url(#mid)" d="M514 245C494 280 478 340 479 385C481 470 544 560 544 645C544 700 530 745 512 773"/>
+      <path stroke="url(#side)" d="M672 372C640 405 622 445 632 495C642 545 695 590 694 650C693 700 672 730 652 755"/>
+    </g>
+  </svg>
+
+  <text x="420" y="188" font-size="104" font-weight="700" fill="#ffffff" letter-spacing="-2">Vapor</text>
+  <text x="422" y="244" font-size="30" font-weight="500" fill="#c3d6f5">Windows-only Steam games on your <tspan fill="#9ecbff">Apple Silicon Mac</tspan></text>
+
+  <g font-size="18" font-weight="600" fill="#cfe0ff" text-anchor="middle">
+    <g fill="#9ecbff" fill-opacity="0.08" stroke="#9ecbff" stroke-opacity="0.35" stroke-width="1.5">
+      <rect x="422" y="282" width="107" height="40" rx="20"/>
+      <rect x="541" y="282" width="189" height="40" rx="20"/>
+      <rect x="742" y="282" width="169" height="40" rx="20"/>
+      <rect x="923" y="282" width="148" height="40" rx="20"/>
+    </g>
+    <text x="475.5" y="308">Wine 11</text>
+    <text x="635.5" y="308">DXMT + D3DMetal</text>
+    <text x="826.5" y="308">Windows Steam</text>
+    <text x="997" y="308">Online play</text>
+  </g>
+</svg>
