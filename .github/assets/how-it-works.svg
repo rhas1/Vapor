@@ -1,0 +1,43 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1280 560" width="1280" height="560" role="img" aria-labelledby="title desc">
+  <title id="title">How Vapor works</title>
+  <desc id="desc">Four layers, top to bottom: the Windows game, unchanged. Wine 11 translates Windows to macOS (files, windows, input, sound, network), beside DXMT or D3DMetal, which translate DirectX to Metal (graphics). Rosetta 2 translates Intel CPU instructions for Apple Silicon. At the bottom, macOS, Metal and Apple Silicon.</desc>
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#1c2949"/>
+      <stop offset="1" stop-color="#090d18"/>
+    </linearGradient>
+  </defs>
+  <style>
+    text { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Helvetica Neue", Helvetica, Arial, sans-serif; }
+    .layer { fill: #9ecbff; stroke: #9ecbff; stroke-width: 1.5; }
+    .name { font-size: 28px; font-weight: 700; fill: #f2f6ff; }
+    .what { font-size: 22px; font-weight: 600; fill: #9ecbff; text-anchor: end; }
+    .note { font-size: 19px; fill: #8fa6cc; }
+  </style>
+
+  <rect width="1280" height="560" rx="24" fill="url(#bg)"/>
+
+  <!-- Each layer is a little fainter than the one above it, down to the Mac underneath -->
+  <rect class="layer" x="48" y="48" width="1184" height="104" rx="16" fill-opacity="0.16" stroke-opacity="0.5"/>
+  <text class="name" x="80" y="94">Windows game</text>
+  <text class="note" x="80" y="128">Steam and the games you install, unchanged</text>
+
+  <rect class="layer" x="48" y="168" width="584" height="104" rx="16" fill-opacity="0.11" stroke-opacity="0.38"/>
+  <text class="name" x="80" y="214">Wine 11</text>
+  <text class="what" x="600" y="214">Windows → macOS</text>
+  <text class="note" x="80" y="248">Files, windows, input, sound, network</text>
+
+  <rect class="layer" x="648" y="168" width="584" height="104" rx="16" fill-opacity="0.11" stroke-opacity="0.38"/>
+  <text class="name" x="680" y="214">DXMT or D3DMetal</text>
+  <text class="what" x="1200" y="214">DirectX → Metal</text>
+  <text class="note" x="680" y="248">Graphics</text>
+
+  <rect class="layer" x="48" y="288" width="1184" height="104" rx="16" fill-opacity="0.07" stroke-opacity="0.28"/>
+  <text class="name" x="80" y="334">Rosetta 2</text>
+  <text class="what" x="1200" y="334">Intel → Apple Silicon</text>
+  <text class="note" x="80" y="368">CPU instructions</text>
+
+  <rect class="layer" x="48" y="408" width="1184" height="104" rx="16" fill-opacity="0.03" stroke-opacity="0.2"/>
+  <text class="name" x="80" y="454">macOS · Metal · Apple Silicon</text>
+  <text class="note" x="80" y="488">Your Mac</text>
+</svg>
