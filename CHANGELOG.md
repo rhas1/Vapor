@@ -2,6 +2,12 @@
 
 Notable changes to Vapor, called DXMetal before 2.0.0. Version numbers follow [Semantic Versioning](https://semver.org).
 
+## [2.3.1] - 2026-11-14
+
+### Changed
+
+- Updated to Template-1.0.27. Vapor offers the update when you open it; Steam, your games and settings stay.
+
 ## [2.3.0] - 2026-11-01
 
 ### Added
@@ -86,3 +92,4 @@ The first tagged release, as DXMetal.
 [2.1.0]: https://github.com/rhas1/Vapor/releases/tag/v2.1.0
 [2.0.0]: https://github.com/rhas1/Vapor/releases/tag/v2.0.0
 [1.0.0]: https://github.com/rhas1/Vapor/releases/tag/v1.0.0
+[2.3.1]: https://github.com/rhas1/Vapor/releases/tag/v2.3.1
