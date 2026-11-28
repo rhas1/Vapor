@@ -3,7 +3,7 @@
 # Use macOS's own tools, not same-named ones that Homebrew or others put earlier in PATH.
 PATH=/usr/bin:/bin:/usr/sbin:/sbin
 
-VAPOR_VERSION=2.3.0  # this release; app/build.sh numbers the app with it
+VAPOR_VERSION=2.3.1  # this release; app/build.sh numbers the app with it
 
 # Where Vapor Steam goes: the app that holds Wine, the translators and the Windows C: drive (Steam
 # and your games). Spotlight skips folders whose names end in .noindex, so searching shows only the
@@ -22,8 +22,8 @@ fi
 # Pinned Sikarugir wrapper template and Wine 11 engine (built from CrossOver sources; the template
 # ships the D3DMetal and DXMT translators). tools/update-pins.sh moves these to newer releases; when
 # editing by hand, change each URL and its SHA-256 together.
-TEMPLATE_URL="https://github.com/Sikarugir-App/Template/releases/download/v1.0/Template-1.0.24.tar.xz"
-TEMPLATE_SHA256="4b5f89eeb9ef139936bdfad33d9b420b05ea4597cb7d63376674f7a8e171321c"
+TEMPLATE_URL="https://github.com/Sikarugir-App/Template/releases/download/v1.0/Template-1.0.27.tar.xz"
+TEMPLATE_SHA256="dd0778f7b553d63df9b0f4e2cda3f3c6c005aabb75588c84d604afe80cdedbb9"
 ENGINE_URL="https://github.com/Sikarugir-App/Engines/releases/download/v1.0/WS12WineSikarugir11.0_1.tar.xz"
 ENGINE_SHA256="67e29fb3d74f363af39c69ba11f9b13a79812c5db07cf4748672658e4a200a0e"
 # Valve's current installer; Steam updates itself after installing, so this isn't pinned.
